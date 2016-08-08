@@ -1,0 +1,35 @@
+require 'spec_helper'
+require_relative 'site_prism/login_page'
+require_relative 'site_prism/secure_area_page'
+
+feature 'User logs in' do
+
+  let (:login_page) {LoginPage.new}
+  let (:secure_area_page) {SecureAreaPage.new}
+
+  scenario 'login with valid credentials' do
+
+    user_goes_to_the_login_page
+
+    user_logins_with_valid_credentials
+
+    user_must_be_sent_to_the_secure_area_page
+
+  end
+
+  #### STEPS ###
+  def user_goes_to_the_login_page
+    login_page.load
+  end
+
+  def user_logins_with_valid_credentials
+    login_page.login_with_valid_credentials
+  end
+
+  def user_must_be_sent_to_the_secure_area_page
+    expect(secure_area_page.current_url).to eq secure_area_page.url
+  end
+
+
+
+end
