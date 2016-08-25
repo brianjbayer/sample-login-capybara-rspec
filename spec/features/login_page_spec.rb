@@ -16,7 +16,7 @@ feature 'Login page' do
     there_must_be_a_single_visible(login_page.password_input)
 
     there_must_be_a_single_visible(login_page.submit_button)
-    
+
   end
 
   #### SUPPORT METHODS ###
