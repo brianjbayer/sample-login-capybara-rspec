@@ -1,4 +1,5 @@
 require 'spec_helper'
+require_relative 'login_steps'
 require_relative 'site_prism/login_page'
 require_relative 'site_prism/secure_area_page'
 
@@ -7,7 +8,7 @@ feature 'User logs in' do
   let (:login_page) {LoginPage.new}
   let (:secure_area_page) {SecureAreaPage.new}
 
-  scenario 'login with valid credentials' do
+  scenario 'user logs in with valid credentials and is sent to the secure area' do
 
     user_goes_to_the_login_page
 
@@ -17,11 +18,8 @@ feature 'User logs in' do
 
   end
 
-  #### STEPS ###
-  def user_goes_to_the_login_page
-    login_page.load
-  end
 
+  ### STEPS ###
   def user_logins_with_valid_credentials
     login_page.login_with_valid_credentials
   end
