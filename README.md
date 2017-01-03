@@ -11,13 +11,7 @@ Install ChromeDriver if you don't already have it.
 
 Install a Ruby version manager (tests run with Ruby 2.2.0). 
 
-Install phantomJS, use version 1.9.8 and move to ```/usr/local/bin```:
-
-http://phantomjs.org/download.html
-
-To download version 1.9.8 for mac OS X: https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-macosx.zip
-
-To download version 1.9.8 for Windows: https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-windows.zip
+Install phantomJS, use version 2.1.1 and move to ```/usr/local/bin```:
 
 Install bundler (if not already installed for your Ruby):
 
