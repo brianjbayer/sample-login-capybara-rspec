@@ -15,7 +15,7 @@ Capybara.configure do |c|
   c.default_driver = :selenium_chrome if ENV['HEADLESS'].nil?
   c.current_driver = :selenium_chrome if ENV['HEADLESS'].nil?
   c.run_server = false
-  c.default_wait_time = 15
+  c.default_max_wait_time = 15
 end
 
 SitePrism.configure do |config|
