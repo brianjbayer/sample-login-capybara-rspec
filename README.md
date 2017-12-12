@@ -3,7 +3,7 @@
 This is a simple sample project demonstrating a simple login feature 
 and verifying the critical elements on the login page.
 
-##Requirements:
+## Requirements:
 
 Install Chrome if you don't already have it.
 
