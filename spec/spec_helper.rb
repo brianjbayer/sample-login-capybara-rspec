@@ -8,15 +8,14 @@ Capybara.register_driver :selenium_chrome do |app|
 end
 
 Capybara.configure do |c|
-#  c.app_host = 'http://www.google.com'
-  c.javascript_driver =  :selenium
-  c.default_driver = :poltergeist
-  c.current_driver = :poltergeist
-  c.default_driver = :selenium_chrome if ENV['HEADLESS'].nil?
-  c.current_driver = :selenium_chrome if ENV['HEADLESS'].nil?
-  c.run_server = false
-  c.default_wait_time = 15
+  c.javascript_driver = :selenium
+  c.default_driver    = :poltergeist
+  c.default_driver    = :selenium_chrome if ENV['HEADLESS'].nil?
+  c.run_server        = false
+  c.default_max_wait_time = 15
 end
+
+Capybara.current_driver = if ENV['HEADLESS'].nil? then :selenium_chrome else :poltergeist end
 
 SitePrism.configure do |config|
   config.use_implicit_waits = true

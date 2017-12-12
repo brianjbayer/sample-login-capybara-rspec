@@ -9,7 +9,7 @@ Install Chrome if you don't already have it.
 
 Install ChromeDriver if you don't already have it.
 
-Install a Ruby version manager (tests run with Ruby 2.2.0). 
+Install a Ruby version manager (tests run with Ruby 2.4.0). 
 
 Install phantomJS, use version 2.1.1 and move to ```/usr/local/bin```:
 
