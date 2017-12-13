@@ -39,10 +39,10 @@ Capybara.configure do |c|
 end
 
 # Set the specific browser from environment variable or not (default is chrome)
-case ENV['SPEC_BROWSER']
+case ENV['SPEC_BROWSER'].downcase
 when 'chrome'
   Capybara.current_driver = :selenium_chrome
-when 'chrome_headless'
+when 'chrome_headless', 'headless_chrome'
   Capybara.current_driver = :selenium_chrome_headless
 when 'firefox'
   Capybara.current_driver = :selenium_firefox
