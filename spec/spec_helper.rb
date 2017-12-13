@@ -16,7 +16,6 @@ Capybara.register_driver :selenium_chrome_headless do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
       chromeOptions: { args: %w(headless) }
   )
-
   Capybara::Selenium::Driver.new app,
                                  browser: :chrome,
                                  desired_capabilities: capabilities
@@ -27,45 +26,35 @@ Capybara.register_driver :selenium_firefox do |app|
   Capybara::Selenium::Driver.new(app, :browser => :firefox)
 end
 
-# phantomjs
-Capybara.register_driver :selenium_phantomjs do |app|
-  Capybara::Selenium::Driver.new(app, :browser => :phantomjs)
-end
-
-# firefox
+# safari
 Capybara.register_driver :selenium_safari do |app|
   Capybara::Selenium::Driver.new(app, :browser => :safari)
 end
 
-# Set the defaults
+# Set the defaults (phantomjs hook)
 Capybara.configure do |c|
-  c.javascript_driver = :selenium
-  c.default_driver    = :poltergeist
-#  c.default_driver    = :selenium_chrome if ENV['HEADLESS'].nil?
-  c.run_server        = false
+  c.javascript_driver     = :selenium
+  c.default_driver        = :poltergeist
+  c.run_server            = false
   c.default_max_wait_time = 15
 end
 
-# Set the specific browser from environment variable (or not)
+# Set the specific browser from environment variable or not (default is chrome)
 case ENV['SPEC_BROWSER']
   when 'chrome'
     Capybara.current_driver = :selenium_chrome
   when 'chrome_headless'
-    puts "!!CHROME HEADLESS!!!"
     Capybara.current_driver = :selenium_chrome_headless
   when 'firefox'
     Capybara.current_driver = :selenium_firefox
   when 'phantomjs'
-    puts "!!!PHANTOMJS - USE DEFAULT DRIVER!!!"
+    # use the default_driver
     true
   when 'safari'
-    puts "!!!HEY!!!"
     Capybara.current_driver = :selenium_safari
   else
     Capybara.current_driver = :selenium_chrome
 end
-#Capybara.current_driver = if ENV['HEADLESS'].nil? then :selenium_chrome else :poltergeist end
-
 
 
 # Configure Page Object
