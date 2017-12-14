@@ -20,7 +20,7 @@ This example contains...
 The tests can be run either directly by the RSpec runner or by the
 supplied Rakefile.
 
-### To Run using Rake
+### To Run Using Rake
 When running the tests using Rake, the tests are run in
 parallel **unless** the Safari browser is chosen.
 
@@ -30,7 +30,7 @@ To run the automated tests using Rake, execute...
 * To run using the default ":selenium", execute...  
 `bundle exec rake`
 
-### To Run using RSpec
+### To Run Using RSpec
 When running the tests using RSpec, the tests are run sequentially.
 
 To run the automated tests using RSpec, execute...  
