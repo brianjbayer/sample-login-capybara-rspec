@@ -1,17 +1,64 @@
-# MY LOGIN CAPYBARA RSPEC PROJECT
+# sample-login-capybara-rspec
 
-This is a simple sample project demonstrating a simple login feature 
-and verifying the critical elements on the login page.
+## Overview
+This is an example 
+[Capybara](https://github.com/teamcapybara/capybara)-[RSpec](http://rspec.info/)-[Ruby](https://www.ruby-lang.org)
+implementation of Acceptance Test Driven Development (ATDD).
+**However, it also provides a somewhat extensible framework that can be reused
+by replacing the existing tests.**
 
-## Requirements:
+These tests show how to use Capybara-RSpec to verify...
+* that critical elements are on a page
+* the ability to login as a user
 
-Install Chrome if you don't already have it.
+It also demonstrates the basic features
+of the Geb-Spock framework and how they can be extended.
+This example contains...
+* support for multiple browsers
 
-Install ChromeDriver if you don't already have it.
+## To Run the Automated Tests
+The tests can be run either directly by the RSpec runner or by the
+supplied Rakefile.
 
-Install a Ruby version manager (tests run with Ruby 2.4.0). 
+### To Run using Rake
+When running the tests using Rake, the tests are run in
+parallel **unless** the Safari browser is chosen.
 
-Install phantomJS, use version 2.1.1 and move to ```/usr/local/bin```:
+To run the automated tests using Rake, execute...  
+*command-line-arguments* `bundle exec rake`
+
+* To run using the default ":selenium", execute...  
+`bundle exec rake`
+
+### To Run using RSpec
+When running the tests using RSPec, the tests are run sequentially.
+
+To run the automated tests using RSpec, execute...  
+*command-line-arguments* `bundle exec rspec`
+
+* To run using the default ":selenium", execute...  
+`bundle exec rspec`
+
+### Command Line Arguments
+#### Specify Browser
+`SPEC_BROWSER=`...
+
+**Example:**
+`-SPEC_BROWSER=chrome`
+
+Currently the following browsers are supported in this project:
+* `chrome` - Google Chrome (requires Chrome and chromedriver)
+* `chrome_headless` - Google Chrome run in headless mode (requires Chrome > 59 and chromedriver)
+* `firefox` - Mozilla Firefox (requires Firefox and geckodriver)
+* `phantomjs` - PhantomJS headless browser (requires PhantomJS)
+* `safari` - Apple Safari (requires Safari)
+
+## Requirements
+* Tests run with Ruby 2.4.0. 
+* To run the tests using a specific browser requires that browser 
+be installed as well as any required browser driver
+(e.g. to run the tests in the Chrome Browser requires
+Chrome and chromedriver be installed).
 
 Install bundler (if not already installed for your Ruby):
 
@@ -25,15 +72,5 @@ Install gems (from project root):
 $ bundle
 ```
 
-To run tests in the browser (Chrome):
-```
-$ bundle exec rspec
-```
-
-To run tests with PhantomJS:
-
-```
-$ HEADLESS=true bundle exec rspec
-```
-
-These are Capybara/rspec tests which use the SitePrism page object gem: [SitePrism docs](http://www.rubydoc.info/gems/site_prism/index), [SitePrism on github](https://github.com/natritmeyer/site_prism)
+## Additional Information
+These tests use the SitePrism page object gem: [SitePrism docs](http://www.rubydoc.info/gems/site_prism/index), [SitePrism on github](https://github.com/natritmeyer/site_prism)
