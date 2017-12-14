@@ -12,7 +12,7 @@ These tests show how to use Capybara-RSpec to verify...
 * the ability to login as a user
 
 It also demonstrates the basic features
-of the Geb-Spock framework and how they can be extended.
+of the Capybara-RSpec framework and how they can be extended.
 This example contains...
 * support for multiple browsers
 
@@ -31,7 +31,7 @@ To run the automated tests using Rake, execute...
 `bundle exec rake`
 
 ### To Run using RSpec
-When running the tests using RSPec, the tests are run sequentially.
+When running the tests using RSpec, the tests are run sequentially.
 
 To run the automated tests using RSpec, execute...  
 *command-line-arguments* `bundle exec rspec`
@@ -44,7 +44,7 @@ To run the automated tests using RSpec, execute...
 `SPEC_BROWSER=`...
 
 **Example:**
-`-SPEC_BROWSER=chrome`
+`SPEC_BROWSER=chrome`
 
 Currently the following browsers are supported in this project:
 * `chrome` - Google Chrome (requires Chrome and chromedriver)
