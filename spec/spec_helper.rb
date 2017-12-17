@@ -32,12 +32,26 @@ def configure_safari
   Capybara.current_driver = :safari
 end
 
+def register_firefox_headless(name)
+  Capybara.register_driver name do |app|
+    # Set the headless as options args - "borrowed" this from the capybara project tests
+    headless_options = ::Selenium::WebDriver::Firefox::Options.new
+    headless_options.args << '--headless'
+
+    Capybara::Selenium::Driver.new app,
+                                   browser: :firefox,
+                                   options: headless_options
+  end
+end
+
 ### MAIN ###
 
 ## Set Browser ##
 # Set the specific browser from environment variable or not (default is :selenium)
 # This uses some selenium/webdriver "inside baseball", specifically that
 # :selenium_chrome, :selenium_chrome_headless, and :poltergeist is already registered
+# and how to register Firefox as headless
+# TODO Look into somehow refactoring this as pass thru ish?
 case ENV['SPEC_BROWSER']
 
 when 'chrome'
@@ -49,6 +63,10 @@ when 'chrome_headless', 'headless_chrome'
 when 'firefox'
   register_standard_browser(:firefox)
   configure_driver(:firefox)
+
+when 'firefox_headless', 'headless_firefox'
+  register_firefox_headless(:firefox_headless)
+  configure_driver(:firefox_headless)
 
 when 'phantomjs'
   configure_driver(:poltergeist)
