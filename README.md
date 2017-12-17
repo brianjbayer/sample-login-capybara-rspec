@@ -50,7 +50,7 @@ Currently the following browsers are supported in this project:
 * `chrome` - Google Chrome (requires Chrome and chromedriver)
 * `chrome_headless` - Google Chrome run in headless mode (requires Chrome > 59 and chromedriver)
 * `firefox` - Mozilla Firefox (requires Firefox and geckodriver)
-* `firefox_headless` - Mozilla Firefox (requires Firefox and geckodriver)
+* `firefox_headless` - Mozilla Firefox run in headless mode (requires Firefox and geckodriver)
 * `phantomjs` - PhantomJS headless browser (requires PhantomJS)
 * `safari` - Apple Safari (requires Safari)
 
