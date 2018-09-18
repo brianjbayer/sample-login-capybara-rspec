@@ -55,7 +55,7 @@ Currently the following browsers are supported in this project:
 * `safari` - Apple Safari (requires Safari)
 
 ## Requirements
-* Tests run with Ruby 2.4.0. 
+* Tests run with Ruby 2.4.4. 
 * To run the tests using a specific browser requires that browser 
 be installed as well as any required browser driver
 (e.g. to run the tests in the Chrome Browser requires

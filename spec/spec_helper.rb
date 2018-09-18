@@ -80,11 +80,6 @@ else
   configure_driver(:selenium)
 end
 
-## Configure Page Object ##
-SitePrism.configure do |config|
-  config.use_implicit_waits = true
-end
-
 ## Configure Test Framework ##
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
