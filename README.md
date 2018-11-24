@@ -47,19 +47,18 @@ To run the automated tests using RSpec, execute...
 `SPEC_BROWSER=chrome`
 
 Currently the following browsers are supported in this project:
-* `chrome` - Google Chrome (requires Chrome and chromedriver)
+* `chrome` - Google Chrome (requires Chrome and installs chromedriver)
 * `chrome_headless` - Google Chrome run in headless mode (requires Chrome > 59 and chromedriver)
-* `firefox` - Mozilla Firefox (requires Firefox and geckodriver)
+* `firefox` - Mozilla Firefox (requires Firefox and installs geckodriver)
 * `firefox_headless` - Mozilla Firefox run in headless mode (requires Firefox and geckodriver)
-* `phantomjs` - PhantomJS headless browser (requires PhantomJS)
+* `phantomjs` - PhantomJS headless browser (installs PhantomJS)
 * `safari` - Apple Safari (requires Safari)
 
 ## Requirements
 * Tests run with Ruby 2.4.4. 
 * To run the tests using a specific browser requires that browser 
-be installed as well as any required browser driver
-(e.g. to run the tests in the Chrome Browser requires
-Chrome and chromedriver be installed).
+be installed - NOTE: chromedriver, geckodriver, and phantomjs will be
+installed with the gems).
 
 Install bundler (if not already installed for your Ruby):
 
