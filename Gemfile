@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'capybara'
+gem 'chromedriver-helper', '1.2.0'
+gem 'geckodriver-helper'
 gem 'parallel_tests'
+gem 'phantomjs-helper'
 gem 'poltergeist'
 gem 'rake'
 gem 'rspec'
