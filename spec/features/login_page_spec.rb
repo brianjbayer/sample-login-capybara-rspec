@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require_relative 'login_steps'
 require_relative 'site_prism/login_page'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LoginPage < SitePrism::Page
   set_url 'http://the-internet.herokuapp.com/login'
 
