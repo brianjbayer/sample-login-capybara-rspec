@@ -55,7 +55,7 @@ Currently the following browsers are supported in this project:
 * `safari` - Apple Safari (requires Safari)
 
 ## Requirements
-* Tests run with Ruby 2.4.4. 
+* Tests run with Ruby 2.4.5. 
 * To run the tests using a specific browser requires that browser 
 be installed - NOTE: chromedriver, geckodriver, and phantomjs will be
 installed with the gems).
