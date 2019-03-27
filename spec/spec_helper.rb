@@ -5,6 +5,7 @@ require 'capybara/rspec'
 require 'site_prism'
 require 'capybara/poltergeist'
 require 'selenium/webdriver'
+require 'webdrivers'
 
 ### METHODS ###
 def register_standard_browser(selenium_browser_name)

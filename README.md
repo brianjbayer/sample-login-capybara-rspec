@@ -48,9 +48,9 @@ To run the automated tests using RSpec, execute...
 
 Currently the following browsers are supported in this project:
 * `chrome` - Google Chrome (requires Chrome and installs chromedriver)
-* `chrome_headless` - Google Chrome run in headless mode (requires Chrome > 59 and chromedriver)
+* `chrome_headless` - Google Chrome run in headless mode (requires Chrome > 59 and installs chromedriver)
 * `firefox` - Mozilla Firefox (requires Firefox and installs geckodriver)
-* `firefox_headless` - Mozilla Firefox run in headless mode (requires Firefox and geckodriver)
+* `firefox_headless` - Mozilla Firefox run in headless mode (requires Firefox and installs geckodriver)
 * `phantomjs` - PhantomJS headless browser (installs PhantomJS)
 * `safari` - Apple Safari (requires Safari)
 
@@ -73,4 +73,8 @@ $ bundle
 ```
 
 ## Additional Information
-These tests use the SitePrism page object gem: [SitePrism docs](http://www.rubydoc.info/gems/site_prism/index), [SitePrism on github](https://github.com/natritmeyer/site_prism)
+These tests use the... 
+  * SitePrism page object gem: [SitePrism docs](http://www.rubydoc.info/gems/site_prism/index), [SitePrism on github](https://github.com/natritmeyer/site_prism)
+  * Webdrivers browser driver helper gem: [Webdrivers on github](https://github.com/titusfortner/webdrivers)
+  * phantomjs-helper phantomjs driver helper gem: [phantomjs-helper on
+    github](https://github.com/bergholdt/phantomjs-helper)
