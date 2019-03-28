@@ -24,14 +24,14 @@ def configure_driver(registered_driver)
   end
 end
 
-def register_configure_remote_container_driver(base_driver)
+def register_configure_remote_container_driver(base:, remote_url: 'http://localhost:4444/wd/hub')
   Capybara.register_driver :remote_container_driver do |app|
     Capybara::Selenium::Driver.new(
       app,
       browser: :remote,
-      desired_capabilities: base_driver,
+      desired_capabilities: base,
       # See https://github.com/SeleniumHQ/docker-selenium on why url setting
-      url: 'http://localhost:4444/wd/hub'
+      url: remote_url
     )
   end
   Capybara.default_driver = :remote_container_driver
@@ -70,8 +70,8 @@ end
 # :selenium_chrome, :selenium_chrome_headless, and :poltergeist is already registered
 # and how to register Firefox as headless
 # TODO Look into somehow refactoring this as pass thru ish?
-case ENV['SPEC_BROWSER']
 
+case ENV['SPEC_BROWSER']
 when 'chrome'
   configure_driver(:selenium_chrome)
 
@@ -79,10 +79,10 @@ when 'chrome_headless', 'headless_chrome'
   configure_driver(:selenium_chrome_headless)
 
 when 'chrome_container'
-  register_configure_remote_container_driver(:chrome)
+  register_configure_remote_container_driver(base: :chrome)
 
 when 'firefox_container'
-  register_configure_remote_container_driver(:firefox)
+  register_configure_remote_container_driver(base: :firefox)
 
 when 'firefox'
   register_standard_browser(:firefox)
@@ -100,8 +100,18 @@ when 'safari'
   configure_safari
 
 else
-  STDERR.puts '>> USING DEFAULT DRIVER (:selenium) <<'
-  configure_driver(:selenium)
+  if ENV['SPEC_BROWSER']
+    # ASSUME remote chrome container address
+    remote_hostname = ENV['SPEC_BROWSER']
+    STDERR.puts ">> USING REMOTE DRIVER HOSTNAME: '#{remote_hostname}'  <<"
+    remote_url = "http://#{remote_hostname}:4444/wd/hub"
+    register_configure_remote_container_driver(base: :chrome, remote_url: remote_url)
+
+  else
+    STDERR.puts '>> USING DEFAULT DRIVER (:selenium) <<'
+    configure_driver(:selenium)
+  end
+
 end
 
 ## Configure Test Framework ##
