@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'capybara'
-require 'capybara/rspec'
-require 'site_prism'
 require 'capybara/poltergeist'
+require 'capybara/rspec'
 require 'selenium/webdriver'
+require 'site_prism'
 require 'webdrivers'
 
 ### METHODS ###
@@ -22,6 +22,21 @@ def configure_driver(registered_driver)
     c.run_server            = false
     c.default_max_wait_time = 15
   end
+end
+
+def register_configure_remote_container_driver(base_driver)
+  Capybara.register_driver :remote_container_driver do |app|
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :remote,
+      desired_capabilities: base_driver,
+      # See https://github.com/SeleniumHQ/docker-selenium on why url setting
+      url: 'http://localhost:4444/wd/hub'
+    )
+  end
+  Capybara.default_driver = :remote_container_driver
+  Capybara.javascript_driver = :remote_container_driver
+  Capybara.default_max_wait_time = 15
 end
 
 def configure_safari
@@ -62,6 +77,12 @@ when 'chrome'
 
 when 'chrome_headless', 'headless_chrome'
   configure_driver(:selenium_chrome_headless)
+
+when 'chrome_container'
+  register_configure_remote_container_driver(:chrome)
+
+when 'firefox_container'
+  register_configure_remote_container_driver(:firefox)
 
 when 'firefox'
   register_standard_browser(:firefox)
