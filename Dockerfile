@@ -2,7 +2,7 @@
 FROM ruby:2.4.5
 
 # Use the same version of Bundler in the Gemfile.lock
-RUN gem install bundler -v 2.0.1
+RUN gem install bundler -v 2.0.2
 
 # Throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
