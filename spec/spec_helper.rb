@@ -103,12 +103,12 @@ else
   if ENV['SPEC_BROWSER']
     # ASSUME remote chrome container address
     remote_hostname = ENV['SPEC_BROWSER']
-    STDERR.puts ">> USING REMOTE DRIVER HOSTNAME: '#{remote_hostname}'  <<"
+    warn ">> USING REMOTE DRIVER HOSTNAME: '#{remote_hostname}'  <<"
     remote_url = "http://#{remote_hostname}:4444/wd/hub"
     register_configure_remote_container_driver(base: :chrome, remote_url: remote_url)
 
   else
-    STDERR.puts '>> USING DEFAULT DRIVER (:selenium) <<'
+    warn '>> USING DEFAULT DRIVER (:selenium) <<'
     configure_driver(:selenium)
   end
 
