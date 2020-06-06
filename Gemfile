@@ -12,4 +12,4 @@ gem 'rspec-retry'
 gem 'rubocop', require: false
 gem 'selenium-webdriver'
 gem 'site_prism'
-gem 'webdrivers', '~> 3.0'
+gem 'webdrivers'
