@@ -123,7 +123,7 @@ for the VNC server
 
 ## Requirements and Local Setup
 * Running the tests using Docker or to use Selenium Standalone Containers requires Docker to be installed and running
-* Tests run locally with Ruby 2.4.5
+* Tests run locally with Ruby 2.6.3
 * To run the tests using a specific **local** browser requires that browser 
 be installed - NOTE: chromedriver, geckodriver, and phantomjs will be
 installed automatically with the gems)
