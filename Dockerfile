@@ -1,5 +1,5 @@
 # sample-login-capybara-rspec
-FROM ruby:2.4.5
+FROM ruby:2.6.3
 
 # Use the same version of Bundler in the Gemfile.lock
 RUN gem install bundler -v 2.1.4
