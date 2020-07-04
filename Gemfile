@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+gem 'bundler-audit', require: false
 gem 'capybara'
 gem 'parallel_tests'
 gem 'phantomjs-helper'
