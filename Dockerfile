@@ -11,12 +11,23 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
+### Dev Environment ###
+# Before any checks stages so that we can always build a dev env
+# ASSUME source is docker volumed into the image
+FROM builder AS devenv
+# Add git and vim at least
+RUN apk add --no-cache git
+RUN apk add --no-cache vim
+# Start devenv in (command line) shell
+CMD /bin/ash
+
 ### Lint Stage ###
 FROM builder AS lint
 COPY . .
 RUN bundle exec rake rubocop
 
 ### Security Static Scan Stage ###
+# Explicit dependencies (altho redundant with devenv)
 # Keep build dependencies
 FROM builder AS secscan
 # Add git for bundler-audit
