@@ -7,111 +7,57 @@ require 'selenium/webdriver'
 require 'site_prism'
 require 'webdrivers'
 
+# Capybara has registered drivers for chrome and firefox but
+# there is a mapping
+CAPYBARA_RENAME = Hash[
+  'firefox': :selenium,
+  'firefox_headless': :selenium_headless,
+  'chrome': :selenium_chrome,
+  'chrome_headless': :selenium_chrome_headless,
+  'phantomjs': :poltergeist
+]
+
 ### METHODS ###
-def register_standard_browser(selenium_browser_name)
-  Capybara.register_driver selenium_browser_name do |app|
-    Capybara::Selenium::Driver.new(app, browser: selenium_browser_name)
-  end
-end
-
-def configure_driver(registered_driver)
-  # Assumption: registered_driver supports javascript and non-rack
-  Capybara.configure do |c|
-    c.javascript_driver     = registered_driver
-    c.default_driver        = registered_driver
-    c.run_server            = false
-    c.default_max_wait_time = 15
-  end
-end
-
-def register_configure_remote_container_driver(base:, remote_url: 'http://localhost:4444/wd/hub')
-  Capybara.register_driver :remote_container_driver do |app|
+def create_remote_browser(remote_url, browser)
+  remote_browser_type = browser.to_sym
+  Capybara.register_driver :remote_browser do |app|
     Capybara::Selenium::Driver.new(
       app,
       browser: :remote,
-      desired_capabilities: base,
-      # See https://github.com/SeleniumHQ/docker-selenium on why url setting
+      desired_capabilities: remote_browser_type,
       url: remote_url
     )
   end
-  Capybara.default_driver = :remote_container_driver
-  Capybara.javascript_driver = :remote_container_driver
-  Capybara.default_max_wait_time = 15
+  Capybara.default_driver = :remote_browser
 end
 
-def configure_safari
-  # Safari can NOT be set as the default browser - the choice here is arbitrary
-  Capybara.configure do |c|
-    c.javascript_driver     = :safari
-    c.default_driver        = :selenium_chrome_headless
-    c.run_server            = false
-    c.default_max_wait_time = 15
-  end
-  Capybara.current_driver = :safari
+def create_local_browser(browser)
+  # Default local is :selenium (firefox)
+  capy_browser = (browser || :selenium).to_sym
+
+  # Do any renaming to registered capybara driver
+  capy_browser = CAPYBARA_RENAME[capy_browser] || capy_browser
+
+  # Safari is not a registered capybara driver
+  register_safari if capy_browser.eql? :safari
+
+  # Assume valid pass-thru registered capybara driver
+  Capybara.default_driver = capy_browser
 end
 
-def register_firefox_headless(name)
-  Capybara.register_driver name do |app|
-    # Set the headless as options args - "borrowed" this from the capybara project tests
-    headless_options = ::Selenium::WebDriver::Firefox::Options.new
-    headless_options.args << '--headless'
-
-    Capybara::Selenium::Driver.new app,
-                                   browser: :firefox,
-                                   options: headless_options
+def register_safari
+  Capybara.register_driver :safari do |app|
+    capabilities = Selenium::WebDriver::Remote::Capabilities.safari
+    Capybara::Selenium::Driver.new(app, browser: :safari, desired_capabilities: capabilities)
   end
 end
 
 ### MAIN ###
-
 ## Set Browser ##
-# Set the specific browser from environment variable or not (default is :selenium)
-# This uses some selenium/webdriver "inside baseball", specifically that
-# :selenium_chrome, :selenium_chrome_headless, and :poltergeist is already registered
-# and how to register Firefox as headless
-# TODO Look into somehow refactoring this as pass thru ish?
-
-case ENV['SPEC_BROWSER']
-when 'chrome'
-  configure_driver(:selenium_chrome)
-
-when 'chrome_headless', 'headless_chrome'
-  configure_driver(:selenium_chrome_headless)
-
-when 'chrome_container'
-  register_configure_remote_container_driver(base: :chrome)
-
-when 'firefox_container'
-  register_configure_remote_container_driver(base: :firefox)
-
-when 'firefox'
-  register_standard_browser(:firefox)
-  configure_driver(:firefox)
-
-when 'firefox_headless', 'headless_firefox'
-  register_firefox_headless(:firefox_headless)
-  configure_driver(:firefox_headless)
-
-when 'phantomjs'
-  configure_driver(:poltergeist)
-
-when 'safari'
-  register_standard_browser(:safari)
-  configure_safari
-
+if ENV['REMOTE']
+  create_remote_browser(ENV['REMOTE'], ENV['BROWSER'])
 else
-  if ENV['SPEC_BROWSER']
-    # ASSUME remote chrome container address
-    remote_hostname = ENV['SPEC_BROWSER']
-    warn ">> USING REMOTE DRIVER HOSTNAME: '#{remote_hostname}'  <<"
-    remote_url = "http://#{remote_hostname}:4444/wd/hub"
-    register_configure_remote_container_driver(base: :chrome, remote_url: remote_url)
-
-  else
-    warn '>> USING DEFAULT DRIVER (:selenium) <<'
-    configure_driver(:selenium)
-  end
-
+  create_local_browser(ENV['BROWSER'])
 end
 
 ## Configure Test Framework ##

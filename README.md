@@ -71,21 +71,26 @@ To run the automated tests using RSpec, execute...
 `bundle exec rspec`
 
 ### Command Line Arguments
+#### Specify Remote (Container) URL
+`REMOTE=`...
+
+Specifying a Remote URL creates a remote browser of type
+specified by `BROWSER` at the specified remote URL  
+
+ **Example:**
+`REMOTE='http://localhost:4444/wd/hub'`
+
 #### Specify Browser
-`SPEC_BROWSER=`...
+`BROWSER=`...
 
 **Example:**
-`SPEC_BROWSER=chrome`
+`BROWSER=chrome`
 
 Currently the following browsers are supported in this project:
 * `chrome` - Google Chrome (requires Chrome and installs chromedriver)
 * `chrome_headless` - Google Chrome run in headless mode (requires Chrome > 59 and installs chromedriver)
-* `chrome_container` - runs against the remote Selenium Standalone Chrome Debug container (requires this container
-to be already running on the default ports)
 * `firefox` - Mozilla Firefox (requires Firefox and installs geckodriver)
 * `firefox_headless` - Mozilla Firefox run in headless mode (requires Firefox and installs geckodriver)
-* `firefox_container` - runs against the remote Selenium Standalone Firefox Debug container (requires this container
-to be already running on the default ports)
 * `phantomjs` - PhantomJS headless browser (installs PhantomJS)
 * `safari` - Apple Safari (requires Safari)
 
@@ -108,8 +113,8 @@ To use the VNC server, you must have a VNC client on your local machine (e.g. Sc
 for the VNC server  
 `docker run -d -p 4444:4444 -p 5900:5900 -v /dev/shm:/dev/shm selenium/standalone-chrome-debug:latest`
 3. Wait for the Selenium Standalone Chrome Debug container to be running (e.g. 'docker ps')
-4. Run the tests using the `chrome_container`  
-`SPEC_BROWSER=chrome_container bundle exec rspec`
+4. Run the tests specifying the `REMOTE` and `BROWSER=chrome`  
+`REMOTE='http://localhost:4444/wd/hub' BROWSER=chrome bundle exec rspec`
 
 #### To Run Using Selenium Standalone Firefox Debug Container
 1. Ensure Docker is running on your local machine
@@ -117,8 +122,8 @@ for the VNC server
 for the VNC server  
 `docker run -d -p 4444:4444 -p 5900:5900 -v /dev/shm:/dev/shm selenium/standalone-firefox-debug:latest`
 3. Wait for the Selenium Standalone Firefox Debug container to be running (e.g. 'docker ps')
-4. Run the tests using the `firefox_container`  
-`SPEC_BROWSER=firefox_container bundle exec rspec`
+4. Run the tests specifying the `REMOTE` and `BROWSER=firefox`  
+`REMOTE='http://localhost:4444/wd/hub' BROWSER=firefox bundle exec rspec`
 
 #### To See the Tests Run Using the VNC Server
 1. Connect to vnc://localhost:5900 (On Mac you can simply enter this address into a Browser)

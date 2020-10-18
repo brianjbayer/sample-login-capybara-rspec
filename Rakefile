@@ -16,9 +16,10 @@ task :checks do
 end
 
 # DEFAULT: Run specs in parallel
+# TODO is this still necessary
 desc 'run specs in parallel unless safari'
 task :spec do
-  if ENV['SPEC_BROWSER'] == 'safari'
+  if ENV['BROWSER'] == 'safari'
     warn 'rake: running specs SEQUENTIALLY for safari'
     RSpec::Core::RakeTask.new(:spec)
 
