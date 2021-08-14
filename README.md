@@ -150,8 +150,15 @@ installed automatically with the gems)
 `bundle`
 
 ## Development
-This project can be developed locally or using the supplied basic,
-container-based development environment which includes `vim` and `git`.
+Due to bundler moving to platform-specific `bundle install`/`Gemfile.lock`,
+specifically `nokogiri`, **updates to be committed to this project must be made
+within the container-based (Docker) development environment**, especially any
+gem updates.
+
+The supplied basic, container-based development environment includes
+`vim` and `git`.
+
+Running the project locally should be reserved for triage and exploration.
 
 ### To Develop Using the Container-based Development Environment
 To develop using the supplied container-based development environment...
