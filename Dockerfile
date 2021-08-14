@@ -1,6 +1,6 @@
 # sample-login-capybara-rspec
 ### Base Image ###
-FROM ruby:2.6.6-alpine AS ruby-alpine
+FROM ruby:2.7.4-alpine AS ruby-alpine
 
 ### Builder Stage ###
 FROM ruby-alpine AS builder
