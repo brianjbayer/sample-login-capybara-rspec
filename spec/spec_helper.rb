@@ -9,6 +9,7 @@ require 'webdrivers'
 
 # Capybara has registered drivers for chrome and firefox but
 # there is a mapping
+# This is inside baseball from capybara/registrations/drivers.rb
 CAPYBARA_RENAME = Hash[
   'firefox': :selenium,
   'firefox_headless': :selenium_headless,
@@ -19,14 +20,14 @@ CAPYBARA_RENAME = Hash[
 
 ### METHODS ###
 def create_remote_browser(remote_url, browser)
-  remote_browser_type = browser.to_sym
+  browser = browser.gsub(/\W/, '').capitalize
+
   Capybara.register_driver :remote_browser do |app|
-    Capybara::Selenium::Driver.new(
-      app,
-      browser: :remote,
-      desired_capabilities: remote_browser_type,
-      url: remote_url
-    )
+    browser_options = Selenium::WebDriver.const_get(browser).const_get('Options').new
+    driver_options = { browser: :remote, url: remote_url }.tap do |opts|
+      opts[:capabilities] = browser_options
+    end
+    Capybara::Selenium::Driver.new(app, **driver_options)
   end
   Capybara.default_driver = :remote_browser
 end
@@ -47,8 +48,11 @@ end
 
 def register_safari
   Capybara.register_driver :safari do |app|
-    capabilities = Selenium::WebDriver::Remote::Capabilities.safari
-    Capybara::Selenium::Driver.new(app, browser: :safari, desired_capabilities: capabilities)
+    browser_options = ::Selenium::WebDriver::Safari::Options.new
+    driver_options = { browser: :safari, timeout: 30 }.tap do |opts|
+      opts[:capabilities] = browser_options
+    end
+    Capybara::Selenium::Driver.new(app, **driver_options)
   end
 end
 
