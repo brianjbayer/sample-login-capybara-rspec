@@ -2,7 +2,7 @@
 
 ## Overview
 This is an example 
-[Capybara](https://github.com/teamcapybara/capybara)-[RSpec](http://rspec.info/)-[Ruby](https://www.ruby-lang.org)
+[Capybara](https://github.com/teamcapybara/capybara) [RSpec](http://rspec.info/) [Ruby](https://www.ruby-lang.org)
 implementation of Acceptance Test Driven Development (ATDD).
 **However, it also provides a somewhat extensible framework that can be reused
 by replacing the existing tests.**
@@ -36,17 +36,26 @@ You must have docker installed and running on your local machine.
 ### To Run Fully in Docker
 1. Ensure Docker is running
 2. Run the project docker-compose.yml file with the
-   docker-compose.seleniumchrome.yml file (this runs using the Chrome
+   docker-compose.selenium.yml file (this runs using the Chrome
    standalone container)
 ```
-docker-compose -f docker-compose.yml -f docker-compose.seleniumchrome.yml up
+docker-compose -f docker-compose.yml -f docker-compose.selenium.yml up
 ```
 
 #### To Run Using the Firefox Standalone Container
+1. Ensure Docker is running
 2. Run the project docker-compose.yml file (this runs using the Firefox
    standalone container
 ```
-docker-compose -f docker-compose.yml -f docker-compose.seleniumfirefox.yml up
+BROWSER=firefox SELENIUM_IMAGE=selenium/standalone-firefox docker-compose -f docker-compose.yml -f docker-compose.selenium.yml up
+```
+
+#### To Run Using the Edge Standalone Container
+1. Ensure Docker is running
+2. Run the project docker-compose.yml file (this runs using the Edge
+   standalone container
+```
+BROWSER=edge SELENIUM_IMAGE=selenium/standalone-edge docker-compose -f docker-compose.yml -f docker-compose.selenium.yml up
 ```
 
 ## To Run the Automated Tests Locally
@@ -95,6 +104,7 @@ specified by `BROWSER` at the specified remote URL
 Currently the following browsers are supported in this project:
 * `chrome` - Google Chrome (requires Chrome and installs chromedriver)
 * `chrome_headless` - Google Chrome run in headless mode (requires Chrome > 59 and installs chromedriver)
+* `edge` - Microsoft Edge (requires Edge)
 * `firefox` - Mozilla Firefox (requires Firefox and installs geckodriver)
 * `firefox_headless` - Mozilla Firefox run in headless mode (requires Firefox and installs geckodriver)
 * `phantomjs` - PhantomJS headless browser (installs PhantomJS)
@@ -182,7 +192,7 @@ docker run -it --rm -v $(pwd):/app browsertests-dev
 To run the development environment in the docker-compose environment,
 use the `docker-compose.dev.yml` file...
 ```
-IMAGE=browsertests-dev SRC=${PWD} docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.seleniumchrome.yml run browsertests /bin/ash
+IMAGE=browsertests-dev SRC=${PWD} docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.selenium.yml run browsertests /bin/ash
 ```
 
 
@@ -193,4 +203,3 @@ These tests use the...
 * Webdrivers browser driver helper gem: [Webdrivers on github](https://github.com/titusfortner/webdrivers)
 * phantomjs-helper phantomjs driver helper gem: [phantomjs-helper on github](https://github.com/bergholdt/phantomjs-helper)
 * Selenium Standalone Debug Containers [Selenium HQ on Github](https://github.com/SeleniumHQ/docker-selenium)
-
