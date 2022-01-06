@@ -24,6 +24,10 @@ echo ''
 
 echo 'DOCKER-COMPOSE COMMAND...'
 docker_compose_command='docker-compose -f docker-compose.yml -f docker-compose.selenium.yml '
+if [ ! -z ${BROWSERTESTS_IMAGE} ]; then
+  echo "...Using Development Environment with Image [${BROWSERTESTS_IMAGE}]"
+  docker_compose_command="${docker_compose_command} -f docker-compose.dev.yml "
+fi
 echo "...COMMAND: [${docker_compose_command}]"
 echo ''
 
