@@ -27,6 +27,7 @@ This framework contains support for...
 * Using Selenium Standalone containers eliminating the need
   for locally installed browsers or drivers
 * Multiple local browsers with automatic driver management
+* Headless execution for those browsers that support it
 * Single-command docker-compose framework to run
   the tests or a supplied command
 * Native through fully-containerized execution
@@ -52,7 +53,7 @@ You must have Docker installed and running on your local machine.
 
 ### To See the Tests Run Using the VNC Server
 > Browsers in the containers are not visible in the VNC server
-  when running `headless`.
+> when running headless
 
 The Selenium Standalone containers used in the docker-compose
 framework have an included VNC server for viewing and
@@ -137,22 +138,41 @@ Chrome be installed).
 #### Specify Browser
 `BROWSER=`...
 
+> **If the `BROWSER` environment variable is not provided (i.e. set),
+> then the default Capybara `:selenium` (Firefox) browser
+> is used**
+
 **Example:**
 `BROWSER=chrome`
 
-Currently the following browsers are supported in this project:
-* `chrome` - Google Chrome (requires Chrome and installs chromedriver if local)
-* `chrome_headless` - Google Chrome run in headless mode (requires Chrome > 59 and installs chromedriver if local)
-* `edge` - Microsoft Edge (requires Edge and installs edgedriver if local)
-* `firefox` - Mozilla Firefox (requires Firefox and installs geckodriver if local)
-* `firefox_headless` - Mozilla Firefox run in headless mode (requires Firefox and installs geckodriver if local)
-* `phantomjs` - PhantomJS headless browser (local only, installs PhantomJS)
+Mostly, this uses a _pass-through_ approach and should support any
+valid `Selenium::WebDriver` browser.
+
+The following browsers were working on Mac at the time of this commit...
+* `chrome` - Google Chrome (requires Chrome)
+* `edge` - Microsoft Edge (requires Edge)
+* `firefox` - Mozilla Firefox (requires Firefox)
 * `safari` - Apple Safari (local only, requires Safari)
 
 > This project uses the
 > [Webdrivers](https://github.com/titusfortner/webdrivers)
 > gem to automatically download and maintain chromedriver, edgedriver, and
 > geckodriver (Firefox).
+
+#### Specify Headless
+`HEADLESS=`...
+
+> **The `HEADLESS` environment variable is ignored if the `BROWSER`
+> environment variable is not provided (i.e. set)**
+
+**Example:**
+`HEADLESS=true`
+
+> The headless specification is implemented as _truthy_ (like Ruby)
+> and ignores case.  Setting `HEADLESS` to any value
+> including empty (i.e. `HEADLESS= `) is interpreted as `true`
+> except for the value `false`.  Thus, setting `HEADLESS=FALSE`
+> will **not** run headless.
 
 #### Specify Remote (Container) URL
 `REMOTE=`...
@@ -170,7 +190,7 @@ bundle exec rake
 ```
 
 > When running the tests locally natively using Rake, the tests are run in
-> parallel **unless** the Safari browser is chosen.
+> parallel **unless** the Safari browser is chosen
 
 ```
 bundle exec rspec
@@ -178,7 +198,7 @@ bundle exec rspec
 
 #### Local Browsers
 ```
-BROWSER=chrome_headless bundle exec rake
+BROWSER=chrome HEADLESS=true bundle exec rake
 ```
 
 #### Using the Selenium Standalone Containers
@@ -237,5 +257,4 @@ These tests use the...
 * SitePrism page object gem: [SitePrism docs](http://www.rubydoc.info/gems/site_prism/index),
 [SitePrism on github](https://github.com/natritmeyer/site_prism)
 * Webdrivers browser driver helper gem: [Webdrivers on github](https://github.com/titusfortner/webdrivers)
-* phantomjs-helper phantomjs driver helper gem: [phantomjs-helper on github](https://github.com/bergholdt/phantomjs-helper)
 * Selenium Standalone Debug Containers [Selenium HQ on Github](https://github.com/SeleniumHQ/docker-selenium)
