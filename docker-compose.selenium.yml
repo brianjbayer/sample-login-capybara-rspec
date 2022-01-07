@@ -13,12 +13,15 @@ services:
   seleniumbrowser :
     image: ${SELENIUM_IMAGE:-selenium/standalone-chrome:latest}
     container_name: ${SELENIUM_HOSTNAME:-seleniumbrowser}
-    shm_size: 2gb
+    shm_size: 4gb
     volumes:
       - /dev/shm:/dev/shm
     ports:
       - "5900:5900"
       - "7900:7900"
+    environment:
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_MAX_SESSIONS=2
     healthcheck:
       test: ["CMD-SHELL", '/opt/bin/check-grid.sh --host 0.0.0.0 --port 4444']
       interval: 15s
