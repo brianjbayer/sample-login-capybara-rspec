@@ -250,8 +250,16 @@ To run the development environment in the docker-compose environment,
 with a Selenium Standalone container use the `dockercomposerun`
 script and run it interactively with the default shell `/bin/ash`...
 ```
+BROWSERTESTS_IMAGE=browsertests-dev ./script/dockercomposerun /bin/ash
+```
+
+To use another directory as the source code for the development
+environment, set the `BROWSERTESTS_SRC` environment variable.
+For example...
+```
 BROWSERTESTS_IMAGE=browsertests-dev BROWSERTESTS_SRC=${PWD} ./script/dockercomposerun /bin/ash
 ```
+
 ## Sources and Additional Information
 These tests use the...
 * SitePrism page object gem: [SitePrism docs](http://www.rubydoc.info/gems/site_prism/index),
