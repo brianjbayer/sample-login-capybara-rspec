@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
-require 'capybara'
-require 'capybara/rspec'
-require 'selenium/webdriver'
 require 'site_prism'
 require 'support/capybara_browser'
-require 'webdrivers'
 
 ## Configure Test Framework ##
 RSpec.configure do |config|

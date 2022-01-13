@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+require 'capybara'
+require 'capybara/rspec'
+require 'selenium/webdriver'
+require 'webdrivers'
+
 ### METHODS ###
 def create_remote_browser(remote_url, browser)
   Capybara.register_driver :remote_browser do |app|
