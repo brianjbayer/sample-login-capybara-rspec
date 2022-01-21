@@ -39,6 +39,9 @@ jobs:
   run-tests-default-chrome:
     needs: build-devenv
     runs-on: ubuntu-latest
+    env:
+      LOGIN_USERNAME: ${{ secrets.LOGIN_USERNAME }}
+      LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v1
@@ -57,6 +60,8 @@ jobs:
     env:
       BROWSER: firefox
       SELENIUM_IMAGE: selenium/standalone-firefox:latest
+      LOGIN_USERNAME: ${{ secrets.LOGIN_USERNAME }}
+      LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v1
@@ -75,6 +80,8 @@ jobs:
     env:
       BROWSER: edge
       SELENIUM_IMAGE: selenium/standalone-edge:latest
+      LOGIN_USERNAME: ${{ secrets.LOGIN_USERNAME }}
+      LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v1

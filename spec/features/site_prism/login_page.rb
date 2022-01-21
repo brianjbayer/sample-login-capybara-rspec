@@ -9,8 +9,8 @@ class LoginPage < SitePrism::Page
   elements :submit_button,  'button[type=submit]'
 
   def login_with_valid_credentials
-    username_input[0].set 'tomsmith'
-    password_input[0].set 'SuperSecretPassword!'
+    username_input[0].set ENV['LOGIN_USERNAME']
+    password_input[0].set ENV['LOGIN_PASSWORD']
     submit_button[0].click
   end
 end
