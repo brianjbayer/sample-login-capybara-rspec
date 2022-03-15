@@ -42,7 +42,7 @@ This framework contains support for...
 The easiest way to run the tests is with the docker-compose
 framework using the `dockercomposerun` script.
 
-This will build a docker image of this project and run
+This will pull the latest docker image of this project and run
 the tests against a
 [Selenium Standalone](https://github.com/SeleniumHQ/docker-selenium)
 container.
@@ -252,8 +252,8 @@ For specifics, see the Selenium Standalone Image
    ```
 
 ## Development
-This project can be developed locally or using the supplied basic,
-container-based development environment which include `vim` and `git`.
+This project can be developed using the supplied basic, container-based
+ development environment which include `vim` and `git`.
 
 ### To Develop Using the Container-based Development Environment
 To develop using the supplied container-based development environment...
@@ -262,35 +262,59 @@ To develop using the supplied container-based development environment...
    ```
    docker build --no-cache --target devenv -t browsertests-dev .
    ```
-2. Run the development environment image either on its own or
-   in the docker-compose environment with either the Selenium Chrome
-   or Firefox container.  By default the development environment
-   container executes the `/bin/ash` shell providing a command
-   line interface. When running the development environment
-   container, you must specify the path to this project's
-   source code.
+2. Run the development environment image in the docker-compose
+   environment either on its own or with either the Selenium
+   Chrome or Firefox container.  By default the development
+   environment container executes the `/bin/ash` shell providing
+   a command line interface.The development environment
+   container volume mounts in the source code.
 
 #### Running Just the Test Development Image
-To run the development environment on its own, use
-`docker run`...
+To run the development environment on its own in the docker-compose
+environment without a Selenium browser, use the `-n` option for
+no Selenium and the `-d` option for the development environment
+and specify the development environment image `BROWSERTESTS_IMAGE`...
 ```
-docker run -it --rm -v $(pwd):/app browsertests-dev
+BROWSERTESTS_IMAGE=browsertests-dev LOGIN_USERNAME=tomsmith LOGIN_PASSWORD=SuperSecretPassword! ./script/dockercomposerun -n -d
 ```
 
-#### Running the Test Development Image in docker-compose
+#### Running the Test Development Image With the Selenium Browser
 To run the development environment in the docker-compose environment,
 with a Selenium Standalone container use the `dockercomposerun`
-script and run it interactively with the default shell `/bin/ash`...
+script and the `-d` option for the development environment
+and specify the development environment image `BROWSERTESTS_IMAGE`
 ```
-BROWSERTESTS_IMAGE=browsertests-dev LOGIN_USERNAME=tomsmith LOGIN_PASSWORD=SuperSecretPassword! ./script/dockercomposerun /bin/ash
+BROWSERTESTS_IMAGE=browsertests-dev LOGIN_USERNAME=tomsmith LOGIN_PASSWORD=SuperSecretPassword! ./script/dockercomposerun -d
 ```
 
 To use another directory as the source code for the development
 environment, set the `BROWSERTESTS_SRC` environment variable.
 For example...
 ```
-BROWSERTESTS_SRC=${PWD} BROWSERTESTS_IMAGE=browsertests-dev LOGIN_USERNAME=tomsmith LOGIN_PASSWORD=SuperSecretPassword! ./script/dockercomposerun /bin/ash
+BROWSERTESTS_SRC=${PWD} BROWSERTESTS_IMAGE=browsertests-dev LOGIN_USERNAME=tomsmith LOGIN_PASSWORD=SuperSecretPassword! ./script/dockercomposerun -d
 ```
+
+#### Running the Tests, Linting and Security Scanning in Test Development Image
+To run the tests, linting, and security scanning in the development
+environment like CI, use the appropriate wrapper scripts.
+
+If you are running interactively (command line) in the development
+environment...
+
+* To run the **tests**...
+  ```
+  ./script/runtests
+  ```
+
+* To run the **linting**...
+  ```
+  ./script/runlint
+  ```
+
+* To run the dependency **security scan**...
+  ```
+  ./script/runsecscan
+  ```
 
 ## Sources and Additional Information
 These tests use the...
