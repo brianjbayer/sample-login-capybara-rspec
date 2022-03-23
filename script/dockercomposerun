@@ -1,10 +1,8 @@
 #!/bin/sh
-
-# ----------------------------------------------------------------------
 # This script runs the project docker-compose framework.
 #
 # - The arguments to this script are passed to the browsertests service
-#   as the command override
+#   as command override
 #
 # - Any environment variables set when calling this script are passed
 #   through to the docker-compose framework
@@ -28,7 +26,6 @@ err_exit() {
   exit $err_code
 }
 
-# --- MAIN --- #
 # Exit script on any errors
 set -e
 
@@ -66,13 +63,12 @@ echo ''
 
 # Override docker compose environments
 echo 'DOCKER-COMPOSE COMMAND...'
-
-# By default include the Selenium browser in the ocker compose environment
-docker_compose_command='docker-compose -f docker-compose.yml -f docker-compose.selenium.yml '
-
-if [ ! -z ${noselenium} ]; then
-  echo "...No Selenium Browser in Environment"
 docker_compose_command='docker-compose -f docker-compose.yml '
+
+# Unless the no selenium option is set, use Selenium browser
+if [ -z ${noselenium} ]; then
+  echo "...Adding Selenium Browser to Environment"
+  docker_compose_command="${docker_compose_command} -f docker-compose.selenium.yml "
 fi
 
 if [ ! -z ${ci} ]; then

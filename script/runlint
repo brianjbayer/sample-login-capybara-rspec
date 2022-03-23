@@ -3,8 +3,12 @@
 # Exit script on any errors
 set -e
 
-run_command='bundle exec rake rubocop'
-echo "RUNNING [${run_command}]..."
+# Run RuboCop in the bundle environment for linting
+# and pass through any arguments
+run_command="bundle exec rubocop $@"
+
+# Generic run command and catch error
+echo "RUNNING [${run_command} ]..."
 # Allow to fail but catch return code
 set +e
 $run_command

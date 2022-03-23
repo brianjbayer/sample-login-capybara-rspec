@@ -3,7 +3,12 @@
 # Exit script on any errors
 set -e
 
-run_command='bundle exec bundle-audit check --update'
+# Run bundler-audit in the bundle environment for
+# security scan of dependencies and pass through
+# any arguments
+run_command="bundle exec bundle-audit check --update $@"
+
+# Generic run command and catch error
 echo "RUNNING [${run_command}]..."
 # Allow to fail but catch return code
 set +e
