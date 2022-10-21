@@ -20,7 +20,7 @@ GEM
     diff-lcs (1.5.0)
     matrix (0.4.2)
     mini_mime (1.1.2)
-    nokogiri (1.13.6-x86_64-linux)
+    nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
     parallel (1.22.1)
     parallel_tests (3.11.0)
@@ -85,6 +85,7 @@ GEM
       nokogiri (~> 1.8)
 
 PLATFORMS
+  x86_64-linux
   x86_64-linux-musl
 
 DEPENDENCIES
