@@ -1,0 +1,18 @@
+# -------------------------------------------------------
+# "Gem Cache" Base Image for sample-login-capybara-rspec
+# -------------------------------------------------------
+# docker build -t sample-login-capybara-rspec-gems -f base-images/Dockerfile.gem-cache .
+
+# TODO: Set the actual base builder digest when officially published
+ARG BASE_BUILDER_DIGEST
+ARG BASE_BUILDER_TAG=3.16-2.7.7-2.3.26
+ARG BASE_BUILDER_IMAGE=alpine-ruby-bundler-dev
+FROM ${BASE_BUILDER_IMAGE}:${BASE_BUILDER_TAG}${BASE_BUILDER_DIGEST}
+
+WORKDIR /app
+# Install the Ruby dependencies (defined in the Gemfile/Gemfile.lock)
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+# Start in (command line) shell
+CMD sh
