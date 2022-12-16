@@ -21,12 +21,44 @@ jobs:
     with:
       raw_name: ${{ github.head_ref }}
 
-  # Build and Push Images
+  # If Changes to Gem Cache Base Image, Build and Push
+  gem-cache-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      gem-cache-changes: ${{ steps.filter.outputs.gemcache }}
+    steps:
+    - uses: actions/checkout@v1
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          gemcache:
+            - 'Gemfile.*'
+            - 'base-images/Dockerfile.gem-cache'
+    - name: gem-cache-changed
+      if: steps.filter.outputs.gemcache == 'true'
+      run: echo "GEM CACHE FILES HAVE BEEN CHANGED"
+    - name: gem-cache-not-changed
+      if: steps.filter.outputs.gemcache == 'false'
+      run: echo "There are no changes to gem cache files"
+
+  maybe-build-and-push-branch-gemcache:
+    needs: [gem-cache-changes, pr-norm-branch]
+    if: needs.gem-cache-changes.outputs.gem-cache-changes == 'true'
+    uses: brianjbayer/actions-image-cicd/.github/workflows/build_push_image.yml@main
+    with:
+      image: ${{ github.repository }}-gems_${{ needs.pr-norm-branch.outputs.name }}:latest
+    secrets:
+      registry_u: ${{ secrets.DOCKER_HUB_USERNAME }}
+      registry_p: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+  # Build and Push App Images
   build-and-push-branch-devenv:
     needs: [pr-norm-branch]
     uses: brianjbayer/actions-image-cicd/.github/workflows/build_push_image.yml@main
     with:
       image: ${{ github.repository }}_${{ needs.pr-norm-branch.outputs.name }}_dev:${{ github.event.pull_request.head.sha }}
+      # TODO: 
       buildopts: --target devenv
     secrets:
       registry_u: ${{ secrets.DOCKER_HUB_USERNAME }}
