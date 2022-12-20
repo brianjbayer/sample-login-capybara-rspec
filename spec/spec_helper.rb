@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require 'capybara'
+require 'capybara/rspec'
+require 'selenium-webdriver'
 require 'site_prism'
+# require 'site_prism/all_there' # Optional but needed to perform more complex matching
 require 'support/capybara_browser'
 
 ## Configure Test Framework ##

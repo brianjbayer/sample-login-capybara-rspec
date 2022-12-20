@@ -21,12 +21,7 @@ feature 'User logs in' do
   end
 
   def user_must_be_sent_to_the_secure_area_page
-    # An "eventually" matcher
-    Timeout.timeout(5) do
-      sleep 0.1 until secure_area_page.current_url.eql?(secure_area_page.url)
-    end
-  rescue Timeout::Error
-    # One last chance or the actual expect error
-    expect(secure_area_page.current_url).to eq secure_area_page.url
+    # Expect the page to be loaded/displayed within 5 seconds
+    expect(secure_area_page.displayed?(5)).to be true
   end
 end
