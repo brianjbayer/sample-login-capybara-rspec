@@ -20,6 +20,8 @@ GEM
     json (2.6.3)
     matrix (0.4.2)
     mini_mime (1.1.2)
+    nokogiri (1.13.10-x86_64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.10-x86_64-linux)
       racc (~> 1.4)
     parallel (1.22.1)
@@ -85,6 +87,7 @@ GEM
       nokogiri (~> 1.8)
 
 PLATFORMS
+  x86_64-darwin-19
   x86_64-linux-musl
 
 DEPENDENCIES
