@@ -1,6 +1,5 @@
 AllCops:
-  NewCops: disable
+  NewCops: enable
+
 Layout/LineLength:
     Max: 120
-Metrics/MethodLength:
-  Max: 15

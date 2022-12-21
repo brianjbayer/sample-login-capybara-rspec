@@ -39,21 +39,22 @@ def browser_options(browser)
   browser = browser.to_s.gsub(/\W/, '').capitalize
   # e.g. Selenium::WebDriver::Chrome::Options.new
   options = Selenium::WebDriver.const_get(browser).const_get('Options').new
-  options.headless! if headless?
+  options.headless! if headless_specified?
   options
 end
 
-def headless?
-  headless = ENV['HEADLESS']
-  return false if headless.nil?
-
+def headless_specified?
+  headless = ENV.fetch('HEADLESS', false)
   headless.to_s.downcase != 'false'
 end
 
 ### MAIN ###
 ## Set Browser ##
-if ENV['REMOTE']
-  create_remote_browser(ENV['REMOTE'], ENV['BROWSER'])
+remote_browser_url = ENV.fetch('REMOTE', nil)
+browser = ENV.fetch('BROWSER', nil)
+
+if remote_browser_url
+  create_remote_browser(remote_browser_url, browser)
 else
-  create_local_browser(ENV['BROWSER'])
+  create_local_browser(browser)
 end
