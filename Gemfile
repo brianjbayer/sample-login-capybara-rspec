@@ -9,6 +9,8 @@ gem 'rake'
 gem 'rspec'
 gem 'rspec-retry'
 gem 'rubocop', require: false
+gem 'rubocop-rake', require: false
+gem 'rubocop-rspec', require: false
 gem 'selenium-webdriver'
 gem 'site_prism'
 gem 'webdrivers'
