@@ -1,6 +1,15 @@
+require:
+  - rubocop-rake
+  - rubocop-rspec
+
 AllCops:
-  NewCops: disable
+  NewCops: enable
+
 Layout/LineLength:
     Max: 120
-Metrics/MethodLength:
-  Max: 15
+
+# --- Rubocop RSpec Configuration ---
+
+# Allow Capybara "Gherkin" RSpec DSL
+RSpec/Capybara/FeatureMethods:
+  Enabled: false
