@@ -1,12 +1,10 @@
 require:
+  - rubocop-capybara
   - rubocop-rake
   - rubocop-rspec
 
 AllCops:
   NewCops: enable
-
-Layout/LineLength:
-    Max: 120
 
 # --- Rubocop RSpec Configuration ---
 
