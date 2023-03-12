@@ -3,7 +3,7 @@
 #-----------------------------------
 
 #--- Base Image ---
-ARG BASE_IMAGE=ruby:2.7.7-alpine
+ARG BASE_IMAGE=ruby:3.2.1-alpine
 FROM ${BASE_IMAGE} AS ruby-alpine
 
 #--- Builder Stage ---
@@ -13,9 +13,13 @@ FROM ruby-alpine AS builder
 ARG BUILD_PACKAGES='build-dependencies build-base'
 
 # Use the same version of Bundler in the Gemfile.lock
-ARG BUNDLER_VER=2.3.26
+ARG BUNDLER_VER=2.4.8
 
 RUN apk --update add --virtual ${BUILD_PACKAGES} \
+  # Update gem command to latest
+  && gem update --system \
+  # TODO: Install git while running capybara fork
+  && apk --update add git \
   && gem install bundler:${BUNDLER_VER}
 
 # Install the Ruby dependencies (defined in the Gemfile/Gemfile.lock)
