@@ -28,7 +28,7 @@ end
 
 def register_browser(browser)
   Capybara.register_driver browser do |app|
-    driver_options = { browser: browser, timeout: 30 }.tap do |opts|
+    driver_options = { browser:, timeout: 30 }.tap do |opts|
       opts[:capabilities] = browser_options browser
     end
     Capybara::Selenium::Driver.new(app, **driver_options)
