@@ -3,9 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'bundler-audit', require: false
-# gem 'capybara'
-# TODO: Using my fork of capybara which has MS Edge fix
-gem 'capybara', git: 'https://github.com/brianjbayer/capybara.git', branch: 'fix-edge-ruby-3-sep-pos-key-args'
+gem 'capybara'
 gem 'parallel_tests'
 gem 'rake'
 gem 'rspec'
