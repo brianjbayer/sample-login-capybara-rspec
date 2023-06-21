@@ -6,29 +6,20 @@ require 'selenium/webdriver'
 require 'webdrivers'
 
 ### METHODS ###
-def create_remote_browser(url, browser)
-  Capybara.register_driver :remote_browser do |app|
-    options = browser_options(browser)
-    Capybara::Selenium::Driver.new(app, browser: :remote, options:, url:)
+def create_browser(browser:, url:)
+  # default is local default capybara browser
+  return (Capybara.default_driver = :selenium) unless browser || url
+
+  browser = browser.to_sym
+  options = browser_options(browser)
+
+  Capybara.register_driver :capy_browser do |app|
+    Capybara::Selenium::Driver.new(app,
+                                   # For remote, browser: must be :remote
+                                   browser: url ? :remote : browser,
+                                   options:, url:)
   end
-  Capybara.default_driver = :remote_browser
-end
-
-def create_local_browser(browser)
-  # Use the default :selenium (Firefox) browser if no browser
-  # is specified
-  return (Capybara.default_driver = :selenium) unless browser
-
-  capy_browser = browser.to_sym
-  register_browser capy_browser
-  Capybara.default_driver = capy_browser
-end
-
-def register_browser(browser)
-  Capybara.register_driver browser do |app|
-    options = browser_options(browser)
-    Capybara::Selenium::Driver.new(app, browser:, options:)
-  end
+  Capybara.default_driver = :capy_browser
 end
 
 def browser_options(browser)
@@ -45,12 +36,5 @@ def headless_specified?
 end
 
 ### MAIN ###
-## Set Browser ##
-remote_browser_url = ENV.fetch('REMOTE', nil)
-browser = ENV.fetch('BROWSER', nil)
-
-if remote_browser_url
-  create_remote_browser(remote_browser_url, browser)
-else
-  create_local_browser(browser)
-end
+create_browser(browser: ENV.fetch('BROWSER', nil),
+               url: ENV.fetch('REMOTE', nil))
