@@ -149,7 +149,6 @@ For more information, see [DEVELOPMENT.md](docs/DEVELOPMENT.md).
 These tests use the...
 * SitePrism page object gem: [SitePrism docs](http://www.rubydoc.info/gems/site_prism/index),
 [SitePrism on GitHub](https://github.com/natritmeyer/site_prism)
-* Webdrivers browser driver helper gem: [Webdrivers on GitHub](https://github.com/titusfortner/webdrivers)
 * Selenium Standalone Debug Containers: [Selenium HQ on GitHub](https://github.com/SeleniumHQ/docker-selenium)
 * Rubocop style enforcer and linter: [Rubocop docs](https://rubocop.org/),
   [Rubocop on GitHub](https://github.com/rubocop/rubocop)

@@ -3,7 +3,6 @@
 require 'capybara'
 require 'capybara/rspec'
 require 'selenium/webdriver'
-require 'webdrivers'
 
 ### METHODS ###
 def create_browser(browser:, url:)
