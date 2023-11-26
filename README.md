@@ -43,6 +43,10 @@ This framework contains support for...
 The easiest way to run the tests is with the docker compose
 framework using the `dockercomposerun` script.
 
+> :apple: The images built for this project are multi-platform
+> images that support both `linux/amd64` (e.g. x86) and
+> `linux/arm64` (i.e. Apple Silicon)
+
 This will pull the latest docker image of this project and run
 the tests against a
 [Selenium Standalone](https://github.com/SeleniumHQ/docker-selenium)
@@ -71,6 +75,10 @@ latest Selenium Standalone Chrome container.
    ```
    LOGIN_USERNAME=tomsmith LOGIN_PASSWORD=SuperSecretPassword! ./script/dockercomposerun
    ```
+
+> :apple: Apple Silicon Macs will actually run against the
+> [Seleniarm Standalone](https://github.com/seleniumhq-community/docker-seleniarm)
+> container
 
 ### Optional: Creating a `.env` File
 You can create a file named `.env` in the project root directory
