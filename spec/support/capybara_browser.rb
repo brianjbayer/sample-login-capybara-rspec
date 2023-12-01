@@ -4,12 +4,14 @@ require 'capybara'
 require 'capybara/rspec'
 require 'selenium/webdriver'
 
+require_relative 'config'
+
 ### METHODS ###
-def create_browser(browser:, url:)
+# Main method that determines and creates the Capybara-driven browser
+def create_browser
   # default is local default capybara browser
   return (Capybara.default_driver = :selenium) unless browser || url
 
-  browser = browser.to_sym
   options = browser_options(browser)
 
   Capybara.register_driver :capy_browser do |app|
@@ -25,15 +27,21 @@ def browser_options(browser)
   browser = browser.to_s.gsub(/\W/, '').capitalize
   # e.g. Selenium::WebDriver::Chrome::Options.new
   options = Selenium::WebDriver.const_get(browser).const_get('Options').new
-  options.add_argument('--headless') if headless_specified?
+  options.add_argument('--headless') if headless?
   options
 end
 
-def headless_specified?
-  headless = ENV.fetch('HEADLESS', false)
-  headless.to_s.downcase != 'false'
+def browser
+  Config::Capybara.browser&.to_sym
+end
+
+def url
+  Config::Capybara.remote_browser_url
+end
+
+def headless?
+  Config::Capybara.headless?
 end
 
 ### MAIN ###
-create_browser(browser: ENV.fetch('BROWSER', nil),
-               url: ENV.fetch('REMOTE', nil))
+create_browser
