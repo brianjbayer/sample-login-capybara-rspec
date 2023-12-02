@@ -4,7 +4,10 @@ require 'capybara'
 require 'capybara/rspec'
 require 'selenium-webdriver'
 require 'site_prism'
+
 require 'support/capybara_browser'
+require 'support/config'
+require 'support/page_helpers'
 
 ## Configure Test Framework ##
 RSpec.configure do |config|

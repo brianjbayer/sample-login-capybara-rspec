@@ -4,7 +4,7 @@ the tests either can be run directly by the RSpec
 runner or by the supplied Rakefile.
 
 ### Prerequisites
-* Ruby 3.2.1
+* Ruby 3.2.2
 * To run the tests using a specific browser requires that browser
 be installed
 (e.g. to run the tests in the Chrome Browser requires
@@ -20,15 +20,9 @@ Chrome be installed).
    ```
 
 ### Environment Variables
-
-#### Required Secrets
-`LOGIN_USERNAME=tomsmith`
-`LOGIN_PASSWORD=SuperSecretPassword!`
-
-**These must be set for the login test to pass.**
-
-> These are publicly available values but demonstrate
-> basic secret management
+#### Required Environment Variables and Secrets
+For the required secrets and other environment variables,
+see the [PREREQUISITES.md](PREREQUISITES.md)
 
 #### Specify Browser
 `BROWSER=`...
@@ -82,19 +76,19 @@ specified by `BROWSER` at the specified remote URL
 ### Examples of Running the Tests
 #### Defaults
 ```
-LOGIN_USERNAME=tomsmith LOGIN_PASSWORD=SuperSecretPassword! bundle exec rake
+bundle exec rake
 ```
 
 > When running the tests locally natively using Rake, the tests are run in
 > parallel **unless** the Safari browser is chosen
 
 ```
-LOGIN_USERNAME=tomsmith LOGIN_PASSWORD=SuperSecretPassword! bundle exec rspec
+bundle exec rspec
 ```
 
 #### Local Browsers
 ```
-BROWSER=chrome HEADLESS=true LOGIN_USERNAME=tomsmith LOGIN_PASSWORD=SuperSecretPassword! bundle exec rake
+BROWSER=chrome HEADLESS=true bundle exec rake
 ```
 
 #### Using the Selenium Standalone Containers
@@ -112,5 +106,5 @@ For specifics, see the Selenium Standalone Image
 2. If you want, launch the VNC client in app or browser
 3. Run the tests specifying the remote Selenium container...
    ```
-   REMOTE='http://localhost:4444/wd/hub' BROWSER=chrome LOGIN_USERNAME=tomsmith LOGIN_PASSWORD=SuperSecretPassword! bundle exec rspec
+   REMOTE='http://localhost:4444/wd/hub' BROWSER=chrome bundle exec rspec
    ```
