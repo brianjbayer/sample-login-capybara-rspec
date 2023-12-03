@@ -44,12 +44,13 @@ Before being able to run this project, you must follow the requirements
 in the [PREREQUISITES.md](docs/PREREQUISITES.md)
 
 ## Running
-The easiest way to run the tests is with the docker compose
-framework using the `dockercomposerun` script.
 
 > :apple: The images built for this project are multi-platform
 > images that support both `linux/amd64` (e.g. x86) and
 > `linux/arm64` (i.e. Apple Silicon)
+
+The easiest way to run the tests is with the docker compose
+framework using the `dockercomposerun` script.
 
 This will pull the latest docker image of this project and run
 the tests against a
