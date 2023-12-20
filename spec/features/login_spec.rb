@@ -17,4 +17,11 @@ feature 'User logs in' do
     # Allow at least 5 seconds for page to load
     expect(secure_area_page).to be_displayed(5)
   end
+
+  scenario 'with invalid password and an error is displayed' do
+    login_page.login_with_invalid_password
+    expect(login_page.current_url).to eq(login_page.url)
+    expect(login_page).to have_login_error
+    expect(login_page.login_error.text).to include('Your password is invalid!')
+  end
 end
