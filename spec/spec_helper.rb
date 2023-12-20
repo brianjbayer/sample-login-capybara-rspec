@@ -2,6 +2,7 @@
 
 require 'capybara'
 require 'capybara/rspec'
+require 'debug'
 require 'selenium-webdriver'
 require 'site_prism'
 
