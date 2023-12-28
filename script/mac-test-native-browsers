@@ -88,9 +88,10 @@ set_headless_env true
 run_command bundle exec rake
 set_headless_env false
 
-echo "Testing Safari"
-set_browser_env safari
-run_command bundle exec rake
+# Apple Safari is currently not supported per brianjbayer/sample-login-capybara-rspec#97
+# echo "Testing Safari"
+# set_browser_env safari
+# run_command bundle exec rake
 
 echo "--- ALL TESTS PASSED ---"
 echo ""

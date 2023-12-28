@@ -2,8 +2,9 @@
 
 ## Overview
 
-> :unamused: Currently Microsoft Edge Browser is not supported
-> in this project per brianjbayer/sample-login-capybara-rspec#97
+> :unamused: Currently neither Microsoft Edge nor Apple Safari
+> browsers are supported in this project per
+> brianjbayer/sample-login-capybara-rspec#97
 
 This is an example of End-To-End (E2E) Tests/Acceptance Test
 Driven Development (ATDD) using
