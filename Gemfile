@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 gem 'bundler-audit', require: false
 gem 'capybara'
+gem 'debug', '>= 1.0.0'
 gem 'parallel_tests'
 gem 'rake'
 gem 'rspec'
