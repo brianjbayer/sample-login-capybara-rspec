@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+ruby '3.2.3'
+
 gem 'bundler-audit', require: false
 gem 'capybara'
 gem 'debug', '>= 1.0.0'

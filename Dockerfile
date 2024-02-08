@@ -3,7 +3,7 @@
 #-----------------------------------
 
 #--- Base Image ---
-ARG BASE_IMAGE=ruby:3.2.2-slim-bookworm
+ARG ARG BASE_IMAGE=ruby:3.2-slim-bookworm
 FROM ${BASE_IMAGE} AS ruby-base
 
 # Install packages common to builder (dev) and deploy
@@ -18,7 +18,7 @@ RUN apt-get update \
 FROM ruby-base AS builder
 
 # Use the same version of Bundler in the Gemfile.lock
-ARG BUNDLER_VERSION=2.5.3
+ARG BUNDLER_VERSION=2.5.6
 ENV BUNDLER_VERSION=${BUNDLER_VERSION}
 
 # Install base build packages
@@ -63,8 +63,7 @@ RUN apt-get update \
   && bundle install \
     # Remove unneeded files (cached *.gem, *.o, *.c)
     && rm -rf ${BUNDLER_PATH}/cache/*.gem \
-    && find ${BUNDLER_PATH}/gems/ -name "*.c" -delete \
-    && find ${BUNDLER_PATH}/gems/ -name "*.o" -delete
+  && find ${BUNDLER_PATH}/gems/ -name '*.[co]' -delete
 
 
 # Start devenv in (command line) shell
