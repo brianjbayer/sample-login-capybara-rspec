@@ -3,13 +3,14 @@
 #-----------------------------------
 
 #--- Base Image ---
-# Ruby version must mttch that in Gemfile.lock
-ARG ARG BASE_IMAGE=ruby:3.2.4-slim-bookworm
+# Ruby version must match that in Gemfile.lock
+ARG BASE_IMAGE=ruby:3.2.4-slim-bookworm
 FROM ${BASE_IMAGE} AS ruby-base
 
 # Install packages common to builder (dev) and deploy
 ARG BASE_PACKAGES='curl'
 
+# Assumes debian based
 RUN apt-get update \
   && apt-get -y dist-upgrade \
   && apt-get -y install ${BASE_PACKAGES} \
@@ -62,13 +63,12 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* \
   # Install app dependencies
   && bundle install \
-    # Remove unneeded files (cached *.gem, *.o, *.c)
-    && rm -rf ${BUNDLER_PATH}/cache/*.gem \
+  # Remove unneeded files (cached *.gem, *.o, *.c)
+  && rm -rf ${BUNDLER_PATH}/cache/*.gem \
   && find ${BUNDLER_PATH}/gems/ -name '*.[co]' -delete
 
 # Start devenv in (command line) shell
-# Assumes debian based
-CMD bash
+CMD ["bash"]
 
 #--- Deploy Stage ---
 FROM ruby-base AS deploy
@@ -89,4 +89,4 @@ WORKDIR /app
 COPY --chown=deployer . /app/
 
 # Run the tests but allow override
-CMD ./script/run tests
+CMD ["./script/run", "tests"]
