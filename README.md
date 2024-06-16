@@ -20,8 +20,6 @@ These tests show how to use Capybara-RSpec to verify...
 It also demonstrates the basic features of the
 Capybara-RSpec framework and how they can be extended.
 
----
-
 ## Run Locally or in Containers
 This project can be run...
 * Locally containerized in 2 separate Docker containers:
