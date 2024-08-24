@@ -10,6 +10,4 @@ AllCops:
 RSpec/MultipleExpectations:
   Max: 3
 
-# Allow Capybara "Gherkin" RSpec DSL
-RSpec/Capybara/FeatureMethods:
-  Enabled: false
+# RSpec/Dialect defaults to allowing all aliases (e.g. Capybara "Gherkin")
