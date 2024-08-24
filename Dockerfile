@@ -4,7 +4,7 @@
 
 #--- Base Image ---
 # Ruby version must match that in Gemfile.lock
-ARG BASE_IMAGE=ruby:3.2.4-slim-bookworm
+ARG BASE_IMAGE=ruby:3.3.4-slim-bookworm
 FROM ${BASE_IMAGE} AS ruby-base
 
 # Install packages common to builder (dev) and deploy
