@@ -4,8 +4,6 @@ services:
       - BROWSER=${BROWSER:-chrome}
       - HEADLESS
       - REMOTE=http://${SELENIUM_HOSTNAME:-seleniumbrowser}:4444/wd/hub
-      # TODO: Deprecate REMOTE_STATUS
-      - REMOTE_STATUS=http://${SELENIUM_HOSTNAME:-seleniumbrowser}:4444/wd/hub/status
       - WAIT_ON_ENDPOINT=${WAIT_ON_ENDPOINT:-http://seleniumbrowser:4444/wd/hub/status}
     depends_on:
       - seleniumbrowser
