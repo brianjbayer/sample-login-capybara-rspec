@@ -1,5 +1,8 @@
+# require is being deprecated: https://docs.rubocop.org/rubocop/plugin_migration_guide.html
 require:
   - rubocop-capybara
+
+plugins:
   - rubocop-rake
   - rubocop-rspec
 
