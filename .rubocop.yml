@@ -1,8 +1,7 @@
-# require is being deprecated: https://docs.rubocop.org/rubocop/plugin_migration_guide.html
-require:
-  - rubocop-capybara
+# Project Rubocop Style Overrides
 
 plugins:
+  - rubocop-capybara
   - rubocop-rake
   - rubocop-rspec
 
