@@ -11,6 +11,7 @@ services:
   seleniumbrowser:
     # The selenium/standalone-chromium image is multiplatform (arm64)
     image: ${SELENIUM_IMAGE:-selenium/standalone-chromium:latest}
+    platform: ${SELENIUM_IMAGE_PLATFORM:-}
     container_name: ${SELENIUM_HOSTNAME:-seleniumbrowser}
     shm_size: 4gb
     volumes:
