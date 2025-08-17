@@ -25,13 +25,27 @@ end
 
 def browser_options(browser)
   browser = browser.to_s.gsub(/\W/, '').capitalize
-  # e.g. Selenium::WebDriver::Chrome::Options.new
-  options = Selenium::WebDriver.const_get(browser).const_get('Options').new
+
+  # Handle any custom browser options here
+  options = custom_chrome_options if browser == 'Chrome'
+
+  # Otherwise use the browser name to dynamically create the options
+  # e.g. Selenium::WebDriver::Firefox::Options.new
+  options ||= Selenium::WebDriver.const_get(browser).const_get('Options').new
+
   options.add_argument('--headless') if headless?
   options
 end
 
+def custom_chrome_options
+  Selenium::WebDriver::Options.chrome.tap do |options|
+    # Prevents popup "Change Your Password - The password you just used was found in a data breach."
+    options.add_preference('profile.password_manager_leak_detection', false)
+  end
+end
+
 def browser
+  # e.g. :chrome
   Config::Capybara.browser&.to_sym
 end
 

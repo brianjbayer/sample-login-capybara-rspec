@@ -1,6 +1,7 @@
 services:
   browsertests:
     image: brianjbayer/sample-login-capybara-rspec:${BROWSERTESTS_TAG:-latest}
+    platform: ${BROWSERTESTS_IMAGE_PLATFORM:-}
     container_name: ${BROWSERTESTS_HOSTNAME:-browsertests}
     environment:
       - BASE_URL
