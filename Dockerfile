@@ -7,6 +7,10 @@
 ARG BASE_IMAGE=ruby:3.4.2-slim-bookworm
 FROM ${BASE_IMAGE} AS ruby-base
 
+# Use the same version of Bundler in the Gemfile.lock
+ARG BUNDLER_VERSION=2.7.1
+ENV BUNDLER_VERSION=${BUNDLER_VERSION}
+
 # Install packages common to builder (dev) and deploy
 
 # Assumes debian based
@@ -17,10 +21,6 @@ RUN apt-get update \
 
 #--- Builder Stage ---
 FROM ruby-base AS builder
-
-# Use the same version of Bundler in the Gemfile.lock
-ARG BUNDLER_VERSION=2.6.5
-ENV BUNDLER_VERSION=${BUNDLER_VERSION}
 
 # Install base build packages
 ARG BASE_BUILD_PACKAGES='build-essential libyaml-dev'
