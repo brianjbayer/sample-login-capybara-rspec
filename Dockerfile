@@ -4,20 +4,12 @@
 
 #--- Base Image ---
 # Ruby version must match that in Gemfile.lock
-ARG BASE_IMAGE=ruby:3.4.2-slim-bookworm
+ARG BASE_IMAGE=ruby:3.4.5-slim-trixie
 FROM ${BASE_IMAGE} AS ruby-base
 
 # Use the same version of Bundler in the Gemfile.lock
 ARG BUNDLER_VERSION=2.7.1
 ENV BUNDLER_VERSION=${BUNDLER_VERSION}
-
-# Install packages common to builder (dev) and deploy
-
-# Assumes debian based
-RUN apt-get update \
-  && apt-get -y dist-upgrade \
-  && apt-get -y install ${BASE_PACKAGES} \
-  && rm -rf /var/lib/apt/lists/*
 
 #--- Builder Stage ---
 FROM ruby-base AS builder
@@ -75,7 +67,7 @@ FROM ruby-base AS deploy
 # Throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1 \
   # Add a user so not running as root - Assumes debian based
-  && adduser --disabled-password --gecos '' deployer
+  && useradd -m -s /bin/bash -c '' deployer && usermod -L deployer
 
 # Run as deployer USER instead of as root
 USER deployer
