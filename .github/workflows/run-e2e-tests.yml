@@ -33,8 +33,8 @@ jobs:
       fail-fast: false
       matrix:
         # MS Edge is currently not supported per brianjbayer/sample-login-capybara-rspec#97
-        # browser: [chrome, firefox, edge]
-        browser: [chrome, firefox]
+        browser: [chrome, firefox, edge]
+        # browser: [chrome, firefox]
     env:
       BROWSERTESTS_IMAGE: ${{ inputs.e2e_tests_image }}
       BROWSER: ${{ matrix.browser }}
