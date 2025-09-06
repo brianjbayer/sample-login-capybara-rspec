@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'bundler/audit/task'
+require 'parallel_tests/tasks'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 
@@ -15,18 +16,19 @@ task :checks do
   Rake::Task['bundle:audit'].invoke
 end
 
-# DEFAULT: Run specs in parallel
-# TODO is this still necessary
-desc 'run specs in parallel unless safari'
-task :spec do
-  if ENV['BROWSER'] == 'safari'
-    warn 'rake: running specs SEQUENTIALLY for safari'
-    RSpec::Core::RakeTask.new(:spec)
-
-  else
-    warn 'rake: running specs in PARALLEL'
-    ruby '-S parallel_rspec spec'
+# RSpec parallel task is the default
+namespace :rspec do
+  desc 'Run RSpec in parallel using parallel_tests'
+  task :parallel do
+    if ENV['BROWSER'] == 'safari'
+      warn 'rake: running specs SEQUENTIALLY for safari'
+      RSpec::Core::RakeTask.new(:spec)
+      Rake::Task['spec'].invoke
+    else
+      Rake::Task['parallel:spec'].invoke
+    end
   end
 end
 
-task default: :spec
+# Set the Default to running in parallel
+task default: 'rspec:parallel'
