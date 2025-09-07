@@ -63,6 +63,7 @@ jobs:
     with:
       e2e_tests_image: ${{ needs.image-names.outputs.unvetted_image }}
       e2e_tests_command: "./script/dockercomposerun -c"
+      browsers: "['chrome', 'firefox', 'edge']"
     secrets:
       login_username: ${{ secrets.LOGIN_USERNAME }}
       login_password: ${{ secrets.LOGIN_PASSWORD }}
@@ -77,6 +78,7 @@ jobs:
     with:
       e2e_tests_image: ${{ needs.image-names.outputs.dev_image }}
       e2e_tests_command: "./script/dockercomposerun -d bash -c './wait_on_endpoint && ./script/run -p tests'"
+      browsers: "['chrome', 'firefox', 'edge']"
     secrets:
       login_username: ${{ secrets.LOGIN_USERNAME }}
       login_password: ${{ secrets.LOGIN_PASSWORD }}
