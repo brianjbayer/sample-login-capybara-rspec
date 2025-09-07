@@ -13,9 +13,14 @@ on:
         required: true
         type: string
       e2e_tests_command:
-        description: "The End-to-End tests image to run"
+        description: "The End-to-End tests command to run"
         required: true
         type: string
+      browsers:
+        description: "The browsers to run tests against (Default: ['chrome', 'firefox'])"
+        required: false
+        type: string
+        default: "['chrome', 'firefox']"
 
     secrets:
       login_username:
@@ -32,9 +37,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # MS Edge is currently not supported per brianjbayer/sample-login-capybara-rspec#97
-        browser: [chrome, firefox, edge]
-        # browser: [chrome, firefox]
+        browser: ${{ fromJSON(inputs.browsers) }}
     env:
       BROWSERTESTS_IMAGE: ${{ inputs.e2e_tests_image }}
       BROWSER: ${{ matrix.browser }}
