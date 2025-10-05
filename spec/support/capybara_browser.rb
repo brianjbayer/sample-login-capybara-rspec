@@ -10,7 +10,7 @@ require_relative 'config'
 # Main method that determines and creates the Capybara-driven browser
 def create_browser
   # default is local default capybara browser
-  return (Capybara.default_driver = :selenium) unless browser || url
+  return Capybara.default_driver = :selenium unless browser || url
 
   options = browser_options(browser)
 
