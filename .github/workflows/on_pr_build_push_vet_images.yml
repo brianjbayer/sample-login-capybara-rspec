@@ -21,7 +21,6 @@ jobs:
     name: Build Development Image
     needs:
       - image-names
-    # TODO: Use version
     uses: brianjbayer/actions-image-cicd/.github/workflows/buildx_amd_arm_image.yml@v0.2
     with:
       image: ${{ needs.image-names.outputs.dev_image }}
