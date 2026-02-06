@@ -1,9 +1,11 @@
 ## Running the Automated Tests Natively and Environment Variables
+
 Assuming that you have a Ruby development environment,
 the tests either can be run directly by the RSpec
 runner or by the supplied Rakefile.
 
 ### Prerequisites
+
 * Ruby 4.0.1
 * To run the tests using a specific browser requires that browser
 be installed
@@ -11,20 +13,26 @@ be installed
 Chrome be installed).
 
 1. Install bundler (if not already installed for your Ruby):
+
+   ```bash
+   gem install bundler
    ```
-   $ gem install bundler
-   ```
+
 2. Install gems (from project root):
-   ```
-   $ bundle install
+
+   ```bash
+   bundle install
    ```
 
 ### Environment Variables
+
 #### Required Environment Variables and Secrets
+
 For the required secrets and other environment variables,
 see the [PREREQUISITES.md](PREREQUISITES.md)
 
 #### Specify Browser
+
 `BROWSER=`...
 
 > **If the `BROWSER` environment variable is not provided (i.e. set),
@@ -38,6 +46,7 @@ Mostly, this uses a _pass-through_ approach and should support any
 valid `Selenium::WebDriver` browser.
 
 The following browsers were working on Mac at the time of this commit...
+
 * `chrome` - Google Chrome (requires Chrome)
 * `edge` - Microsoft Edge (requires Edge)
 * `firefox` - Mozilla Firefox (requires Firefox)
@@ -50,6 +59,7 @@ The following browsers were working on Mac at the time of this commit...
 > and geckodriver (Firefox).
 
 #### Specify Headless
+
 `HEADLESS=`...
 
 > **The `HEADLESS` environment variable is ignored if the `BROWSER`
@@ -60,11 +70,12 @@ The following browsers were working on Mac at the time of this commit...
 
 > The headless specification is implemented as _truthy_ (like Ruby)
 > and ignores case.  Setting `HEADLESS` to any value
-> including empty (i.e. `HEADLESS= `) is interpreted as `true`
+> including empty (i.e. `HEADLESS=`) is interpreted as `true`
 > except for the value `false`.  Thus, setting `HEADLESS=FALSE`
 > will **not** run headless.
 
 #### Specify Remote (Container) URL
+
 `REMOTE=`...
 
 Specifying a Remote URL creates a remote browser of type
@@ -74,24 +85,28 @@ specified by `BROWSER` at the specified remote URL
 `REMOTE='http://localhost:4444/wd/hub'`
 
 ### Examples of Running the Tests
+
 #### Defaults
-```
+
+```bash
 bundle exec rake
 ```
 
 > When running the tests locally natively using Rake, the tests are run in
 > parallel **unless** the Safari browser is chosen
 
-```
+```bash
 bundle exec rspec
 ```
 
 #### Local Browsers
-```
+
+```bash
 BROWSER=chrome HEADLESS=true bundle exec rake
 ```
 
 #### Using the Selenium Standalone Containers
+
 Like the docker-compose framework, these tests can be run natively
 using the Selenium Standalone containers and the VNC Server
 if you want.
@@ -100,11 +115,14 @@ For specifics, see the Selenium Standalone Image
 [documentation](https://github.com/SeleniumHQ/docker-selenium).
 
 1. Run the Selenium Standalone image with standard port and volume mapping...
-   ```
+
+   ```bash
    docker run -d -p 4444:4444 -p 5900:5900 -p 7900:7900 -v /dev/shm:/dev/shm selenium/standalone-chrome
    ```
+
 2. If you want, launch the VNC client in app or browser
 3. Run the tests specifying the remote Selenium container...
-   ```
+
+   ```bash
    REMOTE='http://localhost:4444/wd/hub' BROWSER=chrome bundle exec rspec
    ```
