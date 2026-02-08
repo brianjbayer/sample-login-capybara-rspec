@@ -1,7 +1,3 @@
-#-----------------------------------
-#--- sample-login-capybara-rspec ---
-#-----------------------------------
-
 #--- Base Image ---
 # Ruby version must match that in Gemfile.lock
 ARG BASE_IMAGE=ruby:4.0.1-slim-trixie

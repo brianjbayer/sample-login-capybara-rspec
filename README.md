@@ -68,7 +68,7 @@ You can view the running tests using the included
 Virtual Network Computing (VNC) server.
 
 ### Seeing the Tests Run
->
+
 > Browsers in the containers are not visible in the VNC server
 > when running headless
 
