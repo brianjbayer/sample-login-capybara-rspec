@@ -107,7 +107,7 @@ BROWSER=chrome HEADLESS=true bundle exec rake
 
 #### Using the Selenium Standalone Containers
 
-Like the docker-compose framework, these tests can be run natively
+Like the docker compose framework, these tests can be run natively
 using the Selenium Standalone containers and the VNC Server
 if you want.
 
@@ -117,7 +117,7 @@ For specifics, see the Selenium Standalone Image
 1. Run the Selenium Standalone image with standard port and volume mapping...
 
    ```bash
-   docker run -d -p 4444:4444 -p 5900:5900 -p 7900:7900 -v /dev/shm:/dev/shm selenium/standalone-chrome
+   docker run -d -p 4444:4444 -p 5900:5900 -p 7900:7900 -v /dev/shm:/dev/shm selenium/standalone-chromium
    ```
 
 2. If you want, launch the VNC client in app or browser

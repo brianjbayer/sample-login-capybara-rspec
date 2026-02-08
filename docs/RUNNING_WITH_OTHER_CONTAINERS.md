@@ -35,5 +35,5 @@ in the [PREREQUISITES.md](PREREQUISITES.md)
 
    **:apple: For Apple Silicon/arm64...**
 
-   There is no Seleniarm Edge images as it actually runs chromium, which
-   is what both Chrome and Edge are based upon
+   There is no `arm64` Selenium Edge (or Chrome) image. On this machine architecture
+   the `chromium` image is used.  Both Chrome and Edge are chromium-based browsers.

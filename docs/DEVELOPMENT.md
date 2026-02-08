@@ -17,7 +17,7 @@ in the [PREREQUISITES.md](PREREQUISITES.md)
 ### To Develop Using the Container-Based Development Environment
 
 The easiest way to run the containerized development environment is with
-the docker-compose framework using the `dockercomposerun` script with the
+the docker compose framework using the `dockercomposerun` script with the
 `-d` (development environment) option...
 
 ```bash
@@ -30,7 +30,7 @@ container.
 
 #### Running Just the Development Environment
 
-To run the development environment on its own in the docker-compose
+To run the development environment on its own in the docker compose
 environment **without a Selenium browser**, use the `-o` option for
 browsertests only and the `-d` option for the development environment...
 
@@ -49,7 +49,7 @@ You can also build and run your own development environment image.
    docker build --no-cache --target devenv -t browsertests-dev .
    ```
 
-2. Run your development environment image in the docker-compose
+2. Run your development environment image in the docker compose
    environment either on its own or with the Selenium Chrome
    (or other browser containers) and specify your development
    environment image with `BROWSERTESTS_IMAGE`
