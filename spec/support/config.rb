@@ -15,9 +15,7 @@ module Config
       ENV.fetch('LOGIN_PASSWORD')
     end
   end
-end
 
-module Config
   # Configuration for Capybara-driven browser
   module Capybara
     def self.browser
