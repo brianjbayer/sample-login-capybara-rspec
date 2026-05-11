@@ -19,11 +19,11 @@ module Config
   # Configuration for Capybara-driven browser
   module Capybara
     def self.browser
-      ENV.fetch('BROWSER', nil)
+      ENV.fetch('BROWSER_TYPE', nil)
     end
 
     def self.remote_browser_url
-      ENV.fetch('REMOTE', nil)
+      ENV.fetch('REMOTE_BROWSER', nil)
     end
 
     def self.headless?
