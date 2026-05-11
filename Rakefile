@@ -20,7 +20,7 @@ end
 namespace :rspec do
   desc 'Run RSpec in parallel using parallel_tests'
   task :parallel do
-    if ENV['BROWSER'] == 'safari'
+    if ENV['BROWSER_TYPE'] == 'safari'
       warn 'rake: running specs SEQUENTIALLY for safari'
       RSpec::Core::RakeTask.new(:spec)
       Rake::Task['spec'].invoke
