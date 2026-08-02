@@ -22,13 +22,18 @@ module Config
       ENV.fetch('BROWSER_TYPE', nil)
     end
 
-    def self.remote_browser_url
-      ENV.fetch('REMOTE_BROWSER', nil)
+    def self.driver
+      # Default is selenium
+      ENV.fetch('CAPYBARA_DRIVER', :selenium).downcase.to_sym
     end
 
     def self.headless?
       # Support HEADLESS= as true, but HEADLESS=false as false
       ENV.fetch('HEADLESS', false).to_s.downcase != 'false'
+    end
+
+    def self.remote_browser_url
+      ENV.fetch('REMOTE_BROWSER', nil)
     end
   end
 end

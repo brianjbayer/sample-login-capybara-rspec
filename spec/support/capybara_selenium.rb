@@ -10,15 +10,16 @@ require_relative 'config'
 # Creates the Selenium-based Capybara-driven browser
 def create_selenium_browser
   # default is local default capybara browser
-  return Capybara.default_driver = :selenium unless browser || url
+  return Capybara.default_driver = :selenium unless selenium_browser || selenium_remote_url
 
-  options = browser_options(browser)
+  options = browser_options(selenium_browser)
 
   Capybara.register_driver :capy_browser do |app|
     Capybara::Selenium::Driver.new(app,
                                    # For remote, browser: must be :remote
-                                   browser: url ? :remote : browser,
-                                   options:, url:)
+                                   browser: selenium_remote_url ? :remote : selenium_browser,
+                                   url: selenium_remote_url,
+                                   options:)
   end
   Capybara.default_driver = :capy_browser
 end
@@ -33,7 +34,7 @@ def browser_options(browser)
   # e.g. Selenium::WebDriver::Firefox::Options.new
   options ||= Selenium::WebDriver.const_get(browser).const_get('Options').new
 
-  options.add_argument('--headless') if headless?
+  options.add_argument('--headless') if Config::Capybara.headless?
   options
 end
 
@@ -44,15 +45,11 @@ def custom_chrome_options
   end
 end
 
-def browser
+def selenium_browser
   # e.g. :chrome
   Config::Capybara.browser&.to_sym
 end
 
-def url
+def selenium_remote_url
   Config::Capybara.remote_browser_url
-end
-
-def headless?
-  Config::Capybara.headless?
 end

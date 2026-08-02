@@ -6,6 +6,7 @@ ruby '4.0.6'
 
 gem 'bundler-audit', require: false
 gem 'capybara'
+gem 'cuprite'
 gem 'debug', '>= 1.0.0'
 gem 'parallel_tests'
 gem 'rake'
