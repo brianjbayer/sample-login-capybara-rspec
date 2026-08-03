@@ -1,6 +1,7 @@
 services:
   browsertests:
     environment:
+      - CAPYBARA_DRIVER=selenium
       - BROWSER_TYPE=${BROWSER_TYPE:-chrome}
       - HEADLESS
       - REMOTE_BROWSER=http://${SELENIUM_HOSTNAME:-seleniumbrowser}:4444/wd/hub
