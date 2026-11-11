@@ -13,6 +13,7 @@ def create_cuprite_browser
   Capybara.register_driver(:capybara_cuprite) do |app|
     Capybara::Cuprite::Driver.new(
       app,
+      process_options: { host: "seleniumbrowser", port: 9222 },
       url: Config::Capybara.remote_browser_url,
       headless: Config::Capybara.headless?,
       browser_options: cuprite_browser_options
@@ -25,7 +26,8 @@ end
 def cuprite_browser_options
   # Chromium only
   {
-    'disable-dev-shm-usage' => nil,
-    'no-sandbox' => nil
+    "no-sandbox": nil,
+    "disable-dev-shm-usage": nil,
+    "remote-allow-origins": "*"
   }
 end
